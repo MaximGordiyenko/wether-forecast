@@ -1,6 +1,7 @@
 "use client";
 import { ThemeProvider, createTheme } from '@mui/material/styles';
-import { Feed } from "@/components/Feed";
+import { WeatherWidget } from "@/components/WeatherWidget";
+import { AppProvider } from "@/context/AppProvider";
 
 export const App = () => {
   const darkTheme = createTheme({
@@ -11,7 +12,9 @@ export const App = () => {
   
   return (
     <ThemeProvider theme={darkTheme}>
-      <Feed />
+      <AppProvider>
+        <WeatherWidget/>
+      </AppProvider>
     </ThemeProvider>
   );
 };

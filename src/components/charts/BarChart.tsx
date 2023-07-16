@@ -1,8 +1,8 @@
-import { useEffect, useRef} from "react";
-import { WeatherTableProps } from '@/types';
+import { FC, useEffect, useRef } from "react";
+import { IState } from '@/types';
 import { drawBarChart } from "@/components/charts/drawBarChart";
 
-export const BarChart = ({data}: WeatherTableProps) => {
+export const BarChart: FC<IState> = ({data}) => {
   const svg = useRef<SVGSVGElement>(null);
   useEffect(() => {
     drawBarChart(svg, data);

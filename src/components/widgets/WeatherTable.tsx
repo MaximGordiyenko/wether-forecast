@@ -1,3 +1,5 @@
+import { FC } from "react";
+import { IState } from '@/types';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -5,11 +7,10 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import { WeatherTableProps } from '@/types';
 import { StyledTableCell, StyledTableRow } from "@/components/widgets/styles";
 
-export const WeatherTable = ({data}: WeatherTableProps) => {
-  
+export const WeatherTable: FC<IState> = ({data}) => {
+
   return (
     <TableContainer component={Paper}>
       <Table aria-label="simple table">
