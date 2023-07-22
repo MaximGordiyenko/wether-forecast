@@ -7,7 +7,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import { StyledTableCell, StyledTableRow } from "@/components/widgets/styles";
+import { StyledTableCell, StyledTableRow } from "@/components/tables/styles";
 
 export const WeatherTable: FC<IState> = ({data}) => {
 
@@ -26,9 +26,9 @@ export const WeatherTable: FC<IState> = ({data}) => {
           {data?.map((row: any) =>
             <StyledTableRow key={row.name}>
               <TableCell component="th" scope="row">{row?.name}</TableCell>
-              <TableCell>{row?.temperature_2m_min}</TableCell>
-              <TableCell>{row?.temperature_2m_max}</TableCell>
-              <TableCell>{row?.winddirection_10m_dominant}</TableCell>
+              <TableCell>{row?.temperature_2m_min[0]}</TableCell>
+              <TableCell>{row?.temperature_2m_max[0]}</TableCell>
+              <TableCell>{row?.winddirection_10m_dominant[0]}</TableCell>
             </StyledTableRow>
           )}
         </TableBody>

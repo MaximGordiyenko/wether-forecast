@@ -1,13 +1,13 @@
 "use client";
 import { useEffect } from "react";
-import { WeatherTable } from "./widgets/WeatherTable";
+import { WeatherTable } from "@/components/tables/WeatherTable";
 import Grid from '@mui/material/Grid';
 import { GridBlock } from "./charts/styles";
-import { BarChart } from "./charts/BarChart";
-import { calculateAverage } from "@/utilities/utilities";
 import { FETCH_ERROR, FETCH_SUCCESS } from "@/context/types/app.types";
 import { useAppContext, useAppDispatch } from "@/context/AppProvider";
 import { getWeatherData } from "@/api/api";
+import { Chart } from "@/components/charts/bar/Chart";
+import { convertArraysToObjects, getsWeekdays } from "@/utilities/utilities";
 
 export const WeatherWidget = () => {
   const state = useAppContext();
@@ -32,33 +32,30 @@ export const WeatherWidget = () => {
     fetchData().then(r => r);
   }, []);
   
-  const newArray = [];
+  const flatArray = [];
   
   for (let i = 0; i < state.data.length; i++) {
-    const {temperature_2m_max, temperature_2m_min, winddirection_10m_dominant} = state.data[i].data.daily;
+    const {temperature_2m_max, temperature_2m_min, winddirection_10m_dominant, time} = state.data[i].data.daily;
     
-    const averageTemperatureMax = calculateAverage(temperature_2m_max);
-    const averageTemperatureMin = calculateAverage(temperature_2m_min);
-    const averageWindDirection = calculateAverage(winddirection_10m_dominant);
-    
-    const obj = {
-      temperature_2m_max: averageTemperatureMax,
-      temperature_2m_min: averageTemperatureMin,
-      winddirection_10m_dominant: averageWindDirection,
+    flatArray.push({
+      temperature_2m_max,
+      temperature_2m_min,
+      winddirection_10m_dominant,
+      time: getsWeekdays(time),
       name: state.data[i].name,
-    };
-    
-    newArray.push(obj);
+    });
   }
+  
+  const data = flatArray && convertArraysToObjects(flatArray[0]?.temperature_2m_max, flatArray[0]?.time);
 
   return (
     <GridBlock container spacing={2}>
       {state.loading && <div>loading...</div>}
       <Grid item xs={6}>
-        <WeatherTable data={newArray}/>
+        <WeatherTable data={flatArray}/>
       </Grid>
       <Grid item xs={6}>
-        <BarChart data={newArray}/>
+        <Chart data={data}/>
       </Grid>
     </GridBlock>
   );
