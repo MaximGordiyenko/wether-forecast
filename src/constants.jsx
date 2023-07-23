@@ -30,3 +30,5 @@ export const cities = [
     longitude: 30.5238,
   },
 ];
+
+export const tableHeaders = ['City', 'Temp min', 'Temp max', 'Wind Direction'];

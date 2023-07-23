@@ -1,62 +1,56 @@
 "use client";
 import { useEffect } from "react";
-import { WeatherTable } from "@/components/tables/WeatherTable";
+import { useForm, FormProvider } from "react-hook-form";
 import Grid from '@mui/material/Grid';
-import { GridBlock } from "./charts/styles";
-import { FETCH_ERROR, FETCH_SUCCESS } from "@/context/types/app.types";
 import { useAppContext, useAppDispatch } from "@/context/AppProvider";
-import { getWeatherData } from "@/api/api";
-import { Chart } from "@/components/charts/bar/Chart";
-import { convertArraysToObjects, getsWeekdays } from "@/utilities/utilities";
+import { WeatherTable } from "@/components/tables/WeatherTable";
+import { GridBlock } from "./charts/styles";
+import { convertToLabelValueObj, convertToFlatObj, convertArrayToObjectOfArrays, filterArrayByCity } from "@/utilities/utilities";
+import { Charts } from "@/components/charts/bar/Charts";
+import { CheckboxSelect } from "@/components/select/CheckboxSelect";
+import { fetchData } from "@/context/action/app.action";
 
 export const WeatherWidget = () => {
   const state = useAppContext();
   const dispatch = useAppDispatch();
   
-  const fetchData = async () => {
-    try {
-      const data = await getWeatherData();
-      dispatch({
-        type: FETCH_SUCCESS,
-        payload: data,
-      });
-    } catch (error: any) {
-      dispatch({
-        type: FETCH_ERROR,
-        payload: error.message,
-      });
-    }
-  };
+  const methods = useForm();
+  const {watch} = methods;
   
   useEffect(() => {
-    fetchData().then(r => r);
-  }, []);
+    fetchData(dispatch).then(r => r);
+  }, [dispatch]);
   
-  const flatArray = [];
+  const flatObj = convertToFlatObj(state);
   
-  for (let i = 0; i < state.data.length; i++) {
-    const {temperature_2m_max, temperature_2m_min, winddirection_10m_dominant, time} = state.data[i].data.daily;
-    
-    flatArray.push({
-      temperature_2m_max,
-      temperature_2m_min,
-      winddirection_10m_dominant,
-      time: getsWeekdays(time),
-      name: state.data[i].name,
-    });
-  }
+  const data = flatObj && convertToLabelValueObj(flatObj[0]?.temperature_2m_max, flatObj[0]?.time);
   
-  const data = flatArray && convertArraysToObjects(flatArray[0]?.temperature_2m_max, flatArray[0]?.time);
+  const select = convertArrayToObjectOfArrays(flatObj)
+  
+  const getCity = filterArrayByCity(flatObj, watch('country'))
 
   return (
-    <GridBlock container spacing={2}>
-      {state.loading && <div>loading...</div>}
-      <Grid item xs={6}>
-        <WeatherTable data={flatArray}/>
-      </Grid>
-      <Grid item xs={6}>
-        <Chart data={data}/>
-      </Grid>
-    </GridBlock>
+    <FormProvider {...methods}>
+      <GridBlock container spacing={2}>
+        {state.loading && <div>loading...</div>}
+        <Grid item xs={7}>
+          <Grid container columnSpacing={5}>
+            <Grid item xs={12} sm={12} md={4} lg={4}>
+              <CheckboxSelect name='country' options={select?.cityNames} placeholder='Country'/>
+            </Grid>
+            <Grid item xs={12} sm={12} md={4} lg={4}>
+              <CheckboxSelect name='min' options={select?.temperatureMinAvg} placeholder='Min'/>
+            </Grid>
+            <Grid item xs={12} sm={12} md={4} lg={4}>
+              <CheckboxSelect name='max' options={select?.temperatureMaxAvg} placeholder='Max'/>
+            </Grid>
+          </Grid>
+          <WeatherTable data={getCity}/>
+        </Grid>
+        <Grid item xs={5}>
+          <Charts data={data}/>
+        </Grid>
+      </GridBlock>
+    </FormProvider>
   );
 };

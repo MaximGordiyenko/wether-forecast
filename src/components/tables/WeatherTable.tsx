@@ -1,25 +1,18 @@
+"use client";
 import { FC } from "react";
 import { IState } from '@/types';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@mui/material';
 import { StyledTableCell, StyledTableRow } from "@/components/tables/styles";
+import { tableHeaders } from "@/constants";
 
 export const WeatherTable: FC<IState> = ({data}) => {
 
   return (
     <TableContainer component={Paper}>
-      <Table aria-label="simple table">
+      <Table>
         <TableHead>
           <TableRow>
-            <StyledTableCell>City</StyledTableCell>
-            <StyledTableCell>Temperature min</StyledTableCell>
-            <StyledTableCell>Temperature max</StyledTableCell>
-            <TableCell>Wind Direction</TableCell>
+            {tableHeaders.map((head: string) => <StyledTableCell key={head}>{head}</StyledTableCell>)}
           </TableRow>
         </TableHead>
         <TableBody>

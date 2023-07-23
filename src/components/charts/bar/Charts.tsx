@@ -5,7 +5,7 @@ import { BarChartProps } from "@/components/charts/bar/types";
 import { Bars } from "@/components/charts/bar/Bars";
 import { useEffect, useRef } from "react";
 
-export const Chart = ({ data }: BarChartProps) => {
+export const Charts = ({ data }: BarChartProps) => {
   const xRef = useRef<SVGGElement>(null);
   const yRef = useRef<SVGGElement>(null);
   const margin = { top: 10, right: 0, bottom: 20, left: 20 };

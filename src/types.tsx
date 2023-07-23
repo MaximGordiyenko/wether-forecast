@@ -16,3 +16,10 @@ export interface IState {
 export interface IChild {
   children: ReactNode;
 }
+
+export type CheckboxSelectProps = {
+  name: string;
+  options: string[];
+  limitTags?: number;
+  placeholder: string;
+};
