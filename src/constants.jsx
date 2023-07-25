@@ -32,3 +32,17 @@ export const cities = [
 ];
 
 export const tableHeaders = ['City', 'Temp min', 'Temp max', 'Wind Direction'];
+
+
+export const pages = [
+  {id: 1, page: 'Home', link: '/'},
+  {id: 2, page: 'Blog', link: '/blog'},
+  {id: 3, page: 'Contacts', link: '/contacts'},
+];
+export const settings = [
+  {id: 1, page: 'Profile', link: '/profile'},
+  {id: 2, page: 'Dashboard', link: '/profile/dashboard'},
+  {id: 3, page: 'Settings', link: '/profile/dashboard/settings'},
+  {id: 4, page: 'Login', link: '/login'},
+  {id: 5, page: 'Logout', link: '/logout'},
+];
