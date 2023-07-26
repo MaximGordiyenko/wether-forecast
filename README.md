@@ -1,34 +1,32 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+### Repository requirements:
+- Create a new project on Github
+- Clone the project to local
+- Create a new branch
 
-## Getting Started
+### Project requirements:
+- Use Next.js to create a new project
+- Use Typescript
+- Use design for app provided [here](https://www.figma.com/file/gwjBGWqe5fmhSKczDmKYzu/Test?type=design&node-id=0-1&mode=design)
+- Take API for forecast weather from [here](https://openweathermap.org/api)
 
-First, run the development server:
+### Table requirements:
+- List of cities should be save in separate file
+- While page loading data should display with temperature in Celsius degrees and wind direction for today and for each city
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
+### Filters requirements:
+- User should be able to filter data by one city and for multiple cities
+- Filter should take minimum temperature and maximum temperature in integer numbers in diapason from -80 to 80
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Chart requirements:
+- While page loading data should display in the chart with average temperature for one city for last 7 days
+- Char should change if click on specific city in the table
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+### Common requirements:
+- Provide documentation for project
+- Provide description how to run project
++ If project will be deployed it will be a plus
++ If project will be covered by tests it will be a plus
++ If project will be additional design it will be a plus
++ If project will be covered by Docker it will be a plus
++ If project will be SEO it will be a plus
++ If project will be PWA it will be a plus
